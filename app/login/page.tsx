@@ -30,6 +30,13 @@ export default async function LoginPage({
 }: {
   searchParams?: Promise<{ error?: string }>;
 }) {
+   const cookieStore = await cookies();
+  const access = cookieStore.get("colorless_access")?.value;
+
+  if (access === "granted") {
+    redirect("/points");
+  }
+
   const params = await searchParams;
   const hasError = params?.error === "invalid";
 
