@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
-export async function updateClanPoints(formData: FormData) {
+export async function updateGroupPoints(formData: FormData) {
   const cookieStore = await cookies();
   const access = cookieStore.get("colorless_access")?.value;
 
@@ -13,29 +13,29 @@ export async function updateClanPoints(formData: FormData) {
     redirect("/login");
   }
 
-  const clanId = String(formData.get("clanId"));
+  const groupId = String(formData.get("groupId"));
   const points = Number(formData.get("points"));
 
-  if (!clanId || Number.isNaN(points)) {
+  if (!groupId || Number.isNaN(points)) {
     throw new Error("Invalid form data.");
   }
 
-  const { data: clan, error: fetchError } = await supabaseAdmin
-    .from("clans")
+  const { data: group, error: fetchError } = await supabaseAdmin
+    .from("groups")
     .select("points")
-    .eq("id", clanId)
+    .eq("id", groupId)
     .single();
 
-  if (fetchError || !clan) {
-    throw new Error("Clan not found.");
+  if (fetchError || !group) {
+    throw new Error("Group not found.");
   }
 
-  const newPoints = clan.points + points
+  const newPoints = Math.max(0, group.points + points);
 
   const { error: updateError } = await supabaseAdmin
-    .from("clans")
+    .from("groups")
     .update({ points: newPoints })
-    .eq("id", clanId);
+    .eq("id", groupId);
 
   if (updateError) {
     throw new Error("Failed to update points.");

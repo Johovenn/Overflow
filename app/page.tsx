@@ -1,10 +1,11 @@
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { Gem, Leaf, Sun, Sparkles, Trophy } from "lucide-react";
-import Image from "next/image";
 
-type Clan = {
+type Group = {
   id: string;
   name: string;
+  clan_name: string;
   points: number;
   icon: string;
   color_hex: string;
@@ -22,8 +23,8 @@ function formatPoints(points: number) {
 }
 
 export default async function HomePage() {
-  const { data: clans, error } = await supabase
-    .from("clans")
+  const { data: groups, error } = await supabase
+    .from("groups")
     .select("*")
     .order("points", { ascending: false });
 
@@ -35,165 +36,157 @@ export default async function HomePage() {
     );
   }
 
-  const rankedClans = (clans ?? []) as Clan[];
-  const topThree = rankedClans.slice(0, 3);
+  const rankedGroups = (groups ?? []) as Group[];
+  const topThree = rankedGroups.slice(0, 3);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#050608] px-4 py-10 text-white">
+    <main className="relative min-h-screen overflow-hidden bg-black px-4 py-10 text-white">
       <div className="pointer-events-none absolute inset-0 z-0">
-        {/* Blue blob */}
-        <div className="absolute -top-20 -left-20 h-75 w-75 rounded-full bg-cyan-400/30 blur-[120px] animate-[floatBlob_8s_ease-in-out_infinite]" />
-
-        {/* Green blob */}
-        <div className="absolute top-[40%] -right-25 h-87.5 w-87.5 rounded-full bg-green-400/30 blur-[140px] animate-[floatBlob_8s_ease-in-out_infinite]" />
-
-        {/* Extra subtle glow */}
-        <div className="absolute -bottom-25 left-[20%] h-75 w-75 rounded-full bg-cyan-300/20 blur-[140px] animate-[floatBlob_8s_ease-in-out_infinite]" />
+        <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="absolute top-96 -right-24 h-80 w-80 rounded-full bg-green-400/20 blur-3xl" />
+        <div className="absolute -bottom-24 left-20 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl" />
       </div>
 
       <section className="relative z-10 mx-auto max-w-md">
-        <section className="mx-auto max-w-md">
-          <Image
-            src="/overflow-logo.png"
-            alt="Overflow"
-            width={180}
-            height={100}
-            priority
-            className="mx-auto h-auto w-60 drop-shadow-[0_0_18px_rgba(103,232,249,0.9)] md:w-80"
-          />
+        <Image
+          src="/overflow-logo.png"
+          alt="Overflow"
+          width={360}
+          height={120}
+          priority
+          className="mx-auto h-auto w-64 drop-shadow-lg"
+        />
 
-          <div className="mx-auto mt-5 w-fit rounded-full border border-green-400/30 bg-green-400/10 px-4 py-1 text-[10px] font-bold uppercase tracking-wide text-green-400">
-            ● Live Standings
-          </div>
+        <div className="mx-auto mt-5 w-fit rounded-full border border-green-400/30 bg-green-400/10 px-4 py-1 text-xs font-bold uppercase tracking-wide text-green-400">
+          ● Live Standings
+        </div>
 
-          <section className="mt-10 flex items-end justify-center gap-3">
-            {topThree.map((clan, index) => {
-              const Icon = iconMap[clan.icon as keyof typeof iconMap] ?? Trophy;
-              const isFirst = index === 0;
+        <section className="mt-10 flex items-end justify-center gap-3">
+          {topThree.map((group, index) => {
+            const Icon = iconMap[group.icon as keyof typeof iconMap] ?? Trophy;
+            const isFirst = index === 0;
 
-              return (
+            return (
+              <div
+                key={group.id}
+                className={`relative flex flex-col items-center ${
+                  isFirst ? "order-2" : index === 1 ? "order-1" : "order-3"
+                }`}
+              >
                 <div
-                  key={clan.id}
-                  className={`relative flex flex-col items-center ${
-                    isFirst ? "order-2" : index === 1 ? "order-1" : "order-3"
+                  className={`flex items-center justify-center rounded-full border shadow-lg ${
+                    isFirst ? "h-24 w-24" : "h-16 w-16"
                   }`}
+                  style={{
+                    borderColor: group.color_hex,
+                    boxShadow: `0 0 24px ${group.color_hex}`,
+                    color: group.color_hex,
+                  }}
                 >
-                  <div
-                    className={`flex items-center justify-center rounded-full border shadow-lg ${
-                      isFirst ? "h-24 w-24" : "h-16 w-16"
-                    }`}
-                    style={{
-                      borderColor: clan.color_hex,
-                      boxShadow: `0 0 24px ${clan.color_hex}`,
-                      color: clan.color_hex,
-                    }}
-                  >
-                    <Icon size={isFirst ? 52 : 34} />
-                  </div>
-
-                  <div
-                    className="absolute rounded-full px-2 py-1 text-[10px] font-black text-black"
-                    style={{
-                      backgroundColor: clan.color_hex,
-                      bottom: isFirst ? "76px" : "48px",
-                      right: isFirst ? "-4px" : "-8px",
-                    }}
-                  >
-                    {index + 1}
-                    {index === 0 ? "st" : index === 1 ? "nd" : "rd"}
-                  </div>
-
-                  <div
-                    className={`mt-3 w-23 rounded-t-2xl border bg-white/3 px-2 py-5 text-center ${
-                      isFirst ? "h-36" : "h-28"
-                    }`}
-                    style={{
-                      borderColor: `${clan.color_hex}60`,
-                      boxShadow: isFirst ? `0 0 22px ${clan.color_hex}50` : "",
-                    }}
-                  >
-                    <p
-                      className="text-[10px] font-bold uppercase"
-                      style={{ color: clan.color_hex }}
-                    >
-                      {clan.name}
-                    </p>
-                    <p className="mt-2 text-lg font-bold">
-                      {formatPoints(clan.points)}
-                    </p>
-                  </div>
+                  <Icon size={isFirst ? 52 : 34} />
                 </div>
-              );
-            })}
-          </section>
 
-          <p className="mt-10 text-xs uppercase tracking-[0.25em] text-white/30">
-            Florians Leaderboard
-          </p>
-
-          <section className="mt-4 space-y-3">
-            {rankedClans.map((clan, index) => {
-              const Icon = iconMap[clan.icon as keyof typeof iconMap] ?? Trophy;
-
-              return (
                 <div
-                  key={clan.id}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/3 px-4 py-3"
+                  className="absolute rounded-full px-2 py-1 text-xs font-black text-black"
+                  style={{
+                    backgroundColor: group.color_hex,
+                    bottom: isFirst ? "76px" : "48px",
+                    right: isFirst ? "-4px" : "-8px",
+                  }}
                 >
-                  <div className="flex items-center gap-4">
-                    <p
-                      className="w-4 text-sm font-bold"
-                      style={{ color: index < 3 ? clan.color_hex : "#888" }}
-                    >
-                      {index + 1}
-                    </p>
+                  {index + 1}
+                  {index === 0 ? "st" : index === 1 ? "nd" : "rd"}
+                </div>
 
-                    <div
-                      className="flex h-10 w-10 items-center justify-center rounded-lg border"
-                      style={{
-                        color: clan.color_hex,
-                        borderColor: `${clan.color_hex}80`,
-                        boxShadow: `0 0 12px ${clan.color_hex}50`,
-                      }}
-                    >
-                      <Icon size={22} />
-                    </div>
+                <div
+                  className={`mt-3 w-24 rounded-t-2xl border bg-white/5 px-2 py-5 text-center ${
+                    isFirst ? "h-36" : "h-28"
+                  }`}
+                  style={{
+                    borderColor: `${group.color_hex}60`,
+                    boxShadow: isFirst ? `0 0 22px ${group.color_hex}50` : "",
+                  }}
+                >
+                  <p
+                    className="text-xs font-bold uppercase"
+                    style={{ color: group.color_hex }}
+                  >
+                    {group.name}
+                  </p>
 
-                    <div>
-                      <h2 className="text-sm font-bold uppercase">
-                        {clan.name}
-                      </h2>
-                      <p className="text-[9px] uppercase tracking-wide text-white/35">
-                        {index === 0
-                          ? "Elder Rank"
-                          : index === 1
-                          ? "Rising"
-                          : index === 2
-                          ? "Steady"
-                          : "Last Activity"}
-                      </p>
-                    </div>
-                  </div>
+                  <p className="mt-1 text-xs text-white/40">
+                    {group.clan_name}
+                  </p>
 
-                  <p className="text-right text-sm font-semibold">
-                    {formatPoints(clan.points)}
+                  <p className="mt-2 text-lg font-bold">
+                    {formatPoints(group.points)}
                   </p>
                 </div>
-              );
-            })}
-          </section>
-
-          <a
-            href="/login"
-            className="mx-auto mt-8 block w-full max-w-65 rounded-full bg-[#21ff00] py-4 text-center text-xs font-black uppercase tracking-[0.35em] text-black shadow-[0_0_24px_rgba(33,255,0,0.55)]"
-          >
-            Colorless Login
-          </a>
-
-          <p className="mt-4 text-center text-[9px] uppercase tracking-[0.25em] text-white/20">
-            Colorless Access Only
-          </p>
+              </div>
+            );
+          })}
         </section>
+
+        <p className="mt-10 text-xs uppercase tracking-widest text-white/30">
+          Florians Group Leaderboard
+        </p>
+
+        <section className="mt-4 space-y-3">
+          {rankedGroups.map((group, index) => {
+            const Icon = iconMap[group.icon as keyof typeof iconMap] ?? Trophy;
+
+            return (
+              <div
+                key={group.id}
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+              >
+                <div className="flex items-center gap-4">
+                  <p
+                    className="w-5 text-sm font-bold"
+                    style={{ color: index < 3 ? group.color_hex : "#888888" }}
+                  >
+                    {index + 1}
+                  </p>
+
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border"
+                    style={{
+                      color: group.color_hex,
+                      borderColor: `${group.color_hex}80`,
+                      boxShadow: `0 0 12px ${group.color_hex}50`,
+                    }}
+                  >
+                    <Icon size={22} />
+                  </div>
+
+                  <div>
+                    <h2 className="text-sm font-bold uppercase">
+                      {group.name}
+                    </h2>
+                    <p className="text-xs uppercase tracking-wide text-white/35">
+                      {group.clan_name}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-right text-sm font-semibold">
+                  {formatPoints(group.points)}
+                </p>
+              </div>
+            );
+          })}
+        </section>
+
+        <a
+          href="/login"
+          className="mx-auto mt-8 block w-64 rounded-full bg-green-400 py-4 text-center text-xs font-black uppercase tracking-widest text-black shadow-lg shadow-green-400/40"
+        >
+          Colorless Login
+        </a>
+
+        <p className="mt-4 text-center text-xs uppercase tracking-widest text-white/20">
+          Colorless Access Only
+        </p>
       </section>
     </main>
   );

@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { Gem, Leaf, Send, Sparkles, Sun } from "lucide-react";
-import { updateClanPoints } from "./actions";
+import { updateGroupPoints } from "./actions";
 
-type Clan = {
+type Group = {
   id: string;
   name: string;
+  clan_name: string;
   points: number;
   icon: string;
   color_hex: string;
@@ -19,13 +20,13 @@ const iconMap = {
   Sparkles,
 };
 
-export default function PointsForm({ clans }: { clans: Clan[] }) {
-  const [selectedClanId, setSelectedClanId] = useState(clans[0]?.id ?? "");
+export default function PointsForm({ groups }: { groups: Group[] }) {
+  const [selectedGroupId, setSelectedGroupId] = useState(groups[0]?.id ?? "");
   const [points, setPoints] = useState(100);
 
   return (
-    <form action={updateClanPoints} className="space-y-8">
-      <input type="hidden" name="clanId" value={selectedClanId} />
+    <form action={updateGroupPoints} className="space-y-8">
+      <input type="hidden" name="groupId" value={selectedGroupId} />
       <input type="hidden" name="points" value={points} />
 
       <div>
@@ -42,36 +43,61 @@ export default function PointsForm({ clans }: { clans: Clan[] }) {
 
       <div>
         <p className="mb-4 text-xs font-bold uppercase tracking-widest text-white/50">
-          Select Clan
+          Select Group
         </p>
 
-        <div className="grid grid-cols-2 gap-3">
-          {clans.map((clan) => {
-            const Icon = iconMap[clan.icon as keyof typeof iconMap] ?? Gem;
-            const isSelected = selectedClanId === clan.id;
+        <div className="max-h-80 space-y-4 overflow-y-auto p-4">
+          {["Sapphire", "Emerald", "Citrine", "Amethyst"].map((clanName) => {
+            const clanGroups = groups.filter(
+              (group) => group.clan_name === clanName
+            );
 
             return (
-              <button
-                key={clan.id}
-                type="button"
-                onClick={() => setSelectedClanId(clan.id)}
-                className={`rounded-xl border bg-zinc-900 p-4 transition ${
-                  isSelected
-                    ? "border-white/40 shadow-lg"
-                    : "border-white/10 opacity-70"
-                }`}
-                style={{
-                  boxShadow: isSelected ? `0 0 18px ${clan.color_hex}` : "",
-                }}
-              >
-                <Icon
-                  size={24}
-                  className="mx-auto"
-                  style={{ color: clan.color_hex }}
-                />
+              <div key={clanName}>
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-white/40">
+                  {clanName}
+                </p>
 
-                <p className="mt-2 text-xs">{clan.name}</p>
-              </button>
+                <div className="grid grid-cols-2 gap-3">
+                  {clanGroups.map((group) => {
+                    const Icon =
+                      iconMap[group.icon as keyof typeof iconMap] ?? Gem;
+                    const isSelected = selectedGroupId === group.id;
+
+                    return (
+                      <button
+                        key={group.id}
+                        type="button"
+                        onClick={() => setSelectedGroupId(group.id)}
+                        className={`rounded-xl border bg-zinc-900 p-4 transition ${
+                          isSelected
+                            ? "border-white/40 shadow-lg"
+                            : "border-white/10 opacity-70"
+                        }`}
+                        style={{
+                          boxShadow: isSelected
+                            ? `0 0 18px ${group.color_hex}`
+                            : "",
+                        }}
+                      >
+                        <Icon
+                          size={22}
+                          className="mx-auto"
+                          style={{ color: group.color_hex }}
+                        />
+
+                        <p className="mt-2 text-xs font-semibold">
+                          {group.name}
+                        </p>
+
+                        <p className="mt-1 text-xs text-white/40">
+                          {group.points} pts
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             );
           })}
         </div>
@@ -82,7 +108,13 @@ export default function PointsForm({ clans }: { clans: Clan[] }) {
           Points to Award
         </p>
 
-        <p className="mt-4 text-6xl font-black text-green-400">{points}</p>
+        <p
+          className={`mt-4 text-6xl font-black ${
+            points < 0 ? "text-red-400" : "text-green-400"
+          }`}
+        >
+          {points}
+        </p>
 
         <div className="mx-auto mt-5 h-px w-40 bg-green-400/30" />
 

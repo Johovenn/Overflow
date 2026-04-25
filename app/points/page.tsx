@@ -2,7 +2,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import PointsForm from "./PointsForm";
-import Image from "next/image";
 
 export default async function PointsPage() {
   const cookieStore = await cookies();
@@ -12,15 +11,15 @@ export default async function PointsPage() {
     redirect("/login");
   }
 
-  const { data: clans, error } = await supabase
-    .from("clans")
+  const { data: groups, error } = await supabase
+    .from("groups")
     .select("*")
     .order("name", { ascending: true });
 
-  if (error || !clans) {
+  if (error || !groups) {
     return (
       <main className="min-h-screen bg-black p-6 text-white">
-        Failed to load clans.
+        Failed to load groups.
       </main>
     );
   }
@@ -34,25 +33,16 @@ export default async function PointsPage() {
       </div>
 
       <section className="relative z-10 mx-auto max-w-md">
-        <Image
-          src="/overflow-logo.png"
-          alt="Overflow"
-          width={360}
-          height={120}
-          priority
-          className="mb-8 h-auto w-56 drop-shadow-lg mx-auto"
-        />
-
         <p className="text-xs font-black uppercase tracking-widest text-cyan-400">
-          Welcome, Colorless!
+          Colorless Portal
         </p>
 
         <h1 className="mt-2 text-4xl font-black tracking-tight">
-          Input Points
+          Group Points
         </h1>
 
         <div className="mt-8">
-          <PointsForm clans={clans} />
+          <PointsForm groups={groups} />
         </div>
       </section>
     </main>
