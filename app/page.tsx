@@ -181,7 +181,7 @@ export default async function HomePage() {
           href="/login"
           className="mx-auto mt-8 block w-64 rounded-full bg-green-400 py-4 text-center text-xs font-black uppercase tracking-widest text-black shadow-lg shadow-green-400/40"
         >
-          Colorless Login
+          Update Points
         </a>
 
         <p className="mt-4 text-center text-xs uppercase tracking-widest text-white/20">
