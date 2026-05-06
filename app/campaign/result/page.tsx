@@ -129,30 +129,37 @@ export default async function CampaignResultPage({
 						Your Most Compatible Roommates Are
 					</p>
 
-					<div className="mt-5 flex flex-wrap items-start justify-center gap-5 md:gap-8">
-						{compatibleStereotypes.map((compatible) => {
+					<div className="mt-5 flex items-end justify-center gap-3 md:gap-5">
+						{compatibleStereotypes.map((compatible, index) => {
 							const CompatibleIcon =
 								iconMap[compatible.icon as keyof typeof iconMap];
 
 							const compatibleColor = stereotypeColors[compatible.id];
+							const isCenter = index === 1;
 
 							return (
 								<div
 									key={compatible.id}
-									className="flex w-20 flex-col items-center text-center md:w-24"
+									className={`flex flex-col items-center text-center ${
+										isCenter ? "w-24 md:w-28" : "w-20 md:w-24"
+									}`}
 								>
 									<div
-										className="flex h-14 w-14 items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur md:h-16 md:w-16"
+										className={`shrink-0 flex items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur transition-all ${
+											isCenter
+												? "h-20 w-20 md:h-24 md:w-24"
+												: "h-14 w-14 md:h-16 md:w-16"
+										}`}
 										style={{
 											borderColor: compatibleColor,
 											boxShadow: `
-												0 0 14px ${compatibleColor}30,
+												0 0 16px ${compatibleColor}30,
 												inset 0 0 14px rgba(255,255,255,0.03)
 											`,
 										}}
 									>
 										<CompatibleIcon
-											size={24}
+											size={isCenter ? 36 : 24}
 											style={{
 												color: compatibleColor,
 												filter: `drop-shadow(0 0 8px ${compatibleColor})`,
@@ -160,9 +167,23 @@ export default async function CampaignResultPage({
 										/>
 									</div>
 
-									<p className="mt-2 text-xs font-semibold leading-snug text-white/85">
-										{compatible.name}
-									</p>
+									<div
+										className={`mt-2 flex items-start justify-center ${
+											isCenter
+												? "h-12 md:h-14"
+												: "h-10 md:h-12"
+										}`}
+									>
+										<p
+											className={`font-semibold leading-snug text-white/85 ${
+												isCenter
+													? "text-sm md:text-base"
+													: "text-xs md:text-sm"
+											}`}
+										>
+											{compatible.name}
+										</p>
+									</div>
 								</div>
 							);
 						})}

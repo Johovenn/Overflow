@@ -96,7 +96,7 @@ export default function CampaignPage() {
                 href="/campaign/start"
                 className="flex items-center justify-center gap-3 rounded-2xl bg-green-400 px-8 py-5 text-sm font-black uppercase tracking-widest text-black shadow-lg shadow-green-400/30 transition hover:scale-105 hover:bg-green-300"
               >
-                Start Scanning
+                Start
                 <ArrowRight size={18} />
               </Link>
 

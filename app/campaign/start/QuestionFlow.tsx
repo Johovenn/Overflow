@@ -6,10 +6,10 @@ import { useState } from "react";
 import { questions, type StereotypeId } from "@/lib/campaign-data";
 
 const questionColors = [
-	"#00D9FF", // Sapphire
-	"#FFC400", // Citrine
-	"#39FF14", // Emerald
-	"#BF00FF", // Amethyst
+	"#00D9FF",
+	"#FFC400",
+	"#39FF14",
+	"#BF00FF",
 ];
 
 function getQuestionColor(index: number) {
@@ -39,6 +39,7 @@ export default function QuestionFlow() {
 
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [selectedAnswers, setSelectedAnswers] = useState<StereotypeId[]>([]);
+	const [activeAnswer, setActiveAnswer] = useState<StereotypeId | null>(null);
 	const [isChoosing, setIsChoosing] = useState(false);
 
 	const currentQuestion = questions[currentQuestionIndex];
@@ -49,6 +50,7 @@ export default function QuestionFlow() {
 		if (isChoosing) return;
 
 		setIsChoosing(true);
+		setActiveAnswer(stereotypeId);
 
 		const nextAnswers = [...selectedAnswers, stereotypeId];
 
@@ -68,8 +70,9 @@ export default function QuestionFlow() {
 
 			setSelectedAnswers(nextAnswers);
 			setCurrentQuestionIndex((value) => value + 1);
+			setActiveAnswer(null);
 			setIsChoosing(false);
-		}, 220);
+		}, 750);
 	}
 
 	return (
@@ -93,58 +96,89 @@ export default function QuestionFlow() {
 				<div
 					className="relative mt-12 w-full rounded-3xl bg-black/50 px-6 py-10 text-center backdrop-blur md:px-12 md:py-12"
 					style={{
-                        boxShadow: `
-                            0 0 18px ${themeColor}25,
-                            inset 0 0 20px rgba(255,255,255,0.03)
-                        `,
-                    }}
+						boxShadow: `
+							0 0 18px ${themeColor}25,
+							inset 0 0 20px rgba(255,255,255,0.03)
+						`,
+					}}
 				>
-					<p className="mx-auto mt-3 max-w-xl text-xl leading-relaxed md:text-3xl md:leading-snug">
+					<p className="mx-auto max-w-xl text-xl font-bold leading-relaxed md:text-3xl md:leading-snug">
 						{currentQuestion.question}
 					</p>
 				</div>
 
 				<div className="mt-8 grid w-full grid-cols-2 gap-4 md:gap-5">
-					{currentQuestion.answers.slice(0, 4).map((answer) => (
-						<button
-							key={answer.label}
-							type="button"
-							disabled={isChoosing}
-							onClick={() => handleChoose(answer.stereotypeId)}
-							className="flex min-h-24 items-center justify-center rounded-2xl border bg-black/50 px-4 py-4 text-center text-sm leading-relaxed text-white backdrop-blur transition hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60 md:min-h-28 md:px-6 md:text-lg"
-							style={{
-								borderColor: themeColor,
-								boxShadow: `
-									0 0 14px ${themeColor}30,
-									inset 0 0 18px rgba(255,255,255,0.03)
-								`,
-							}}
-						>
-							{answer.text}
-						</button>
-					))}
+					{currentQuestion.answers.slice(0, 4).map((answer) => {
+						const isActive = activeAnswer === answer.stereotypeId;
+
+						return (
+							<button
+								key={answer.label}
+								type="button"
+								disabled={isChoosing}
+								onClick={() => handleChoose(answer.stereotypeId)}
+								className={`flex min-h-24 items-center justify-center rounded-2xl border-[0.5px] bg-black/50 px-4 py-4 text-center text-sm font-bold leading-relaxed text-white backdrop-blur transition-all duration-500 ease-out md:min-h-28 md:px-6 md:text-lg ${
+									isActive
+										? "scale-[1.04]"
+										: "hover:scale-[1.03]"
+								}`}
+								style={{
+									borderColor: themeColor,
+									boxShadow: isActive
+										? `
+											0 0 28px ${themeColor}90,
+											0 0 56px ${themeColor}60,
+											inset 0 0 22px rgba(255,255,255,0.08)
+										`
+										: `
+											0 0 14px ${themeColor}30,
+											inset 0 0 18px rgba(255,255,255,0.03)
+										`,
+								}}
+							>
+								{answer.text}
+							</button>
+						);
+					})}
 				</div>
 
 				<div className="mt-5 flex w-full justify-center">
-					<button
-						type="button"
-						disabled={isChoosing}
-						onClick={() => handleChoose(currentQuestion.answers[4].stereotypeId)}
-						className="flex min-h-24 w-full max-w-sm items-center justify-center rounded-2xl border bg-black/50 px-4 py-4 text-center text-sm leading-relaxed text-white backdrop-blur transition hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60 md:min-h-28 md:max-w-md md:px-6 md:text-lg"
-						style={{
-							borderColor: themeColor,
-							boxShadow: `
-								0 0 14px ${themeColor}30,
-								inset 0 0 18px rgba(255,255,255,0.03)
-							`,
-						}}
-					>
-						{currentQuestion.answers[4].text}
-					</button>
+					{(() => {
+						const lastAnswer = currentQuestion.answers[4];
+						const isActive = activeAnswer === lastAnswer.stereotypeId;
+
+						return (
+							<button
+								type="button"
+								disabled={isChoosing}
+								onClick={() => handleChoose(lastAnswer.stereotypeId)}
+								className={`flex min-h-24 w-full max-w-sm items-center justify-center rounded-2xl border-[0.5px] bg-black/50 px-4 py-4 text-center text-sm font-bold leading-relaxed text-white backdrop-blur transition-all duration-500 ease-out md:min-h-28 md:max-w-md md:px-6 md:text-lg ${
+									isActive
+										? "scale-[1.04]"
+										: "hover:scale-[1.03]"
+								}`}
+								style={{
+									borderColor: themeColor,
+									boxShadow: isActive
+										? `
+											0 0 28px ${themeColor}90,
+											0 0 56px ${themeColor}60,
+											inset 0 0 22px rgba(255,255,255,0.08)
+										`
+										: `
+											0 0 14px ${themeColor}30,
+											inset 0 0 18px rgba(255,255,255,0.03)
+										`,
+								}}
+							>
+								{lastAnswer.text}
+							</button>
+						);
+					})()}
 				</div>
 
 				<div className="mt-8 w-full">
-					<div className="flex items-center justify-between text-xs uppercase tracking-widest text-white/35">
+					<div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-white/35">
 						<span>Scanner Progress</span>
 						<span>
 							{progress}/{questions.length}
@@ -153,7 +187,7 @@ export default function QuestionFlow() {
 
 					<div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
 						<div
-							className="h-full rounded-full transition-all duration-300"
+							className="h-full rounded-full transition-all duration-500 ease-out"
 							style={{
 								width: `${(progress / questions.length) * 100}%`,
 								backgroundColor: themeColor,
