@@ -31,24 +31,12 @@ export default function CampaignPage() {
             priority
             className="mx-auto h-auto w-64 drop-shadow-lg md:w-80"
           />
-
-          <div className="mx-auto mt-6 w-fit rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-cyan-300 backdrop-blur">
-            Personality Campaign
-          </div>
         </div>
 
         {/* Main Content */}
         <div className="mt-14 grid items-center gap-14 lg:grid-cols-2">
           {/* Left Side */}
           <section>
-            <div className="flex items-center gap-3 text-cyan-300">
-              <BrainCircuit size={24} />
-
-              <p className="text-sm font-black uppercase tracking-widest">
-                Stereotype Scanner
-              </p>
-            </div>
-
             <h1 className="mt-6 max-w-xl text-5xl font-black leading-tight md:text-7xl">
               What type of
               <span className="bg-linear-to-r from-cyan-300 to-green-400 bg-clip-text text-transparent">
@@ -60,7 +48,7 @@ export default function CampaignPage() {
             </h1>
 
             <p className="mt-8 max-w-xl text-base leading-8 text-white/60 md:text-lg">
-              10 pertanyaan. 10 stereotype. Cari tahu tipe florian seperti apa yang paling menggambarkan dirimu
+              10 pertanyaan untuk cari tahu tipe florian seperti apa yang paling menggambarkan dirimu
             </p>
 
             {/* Feature Cards */}
