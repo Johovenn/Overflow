@@ -173,7 +173,7 @@ export default async function CampaignResultPage({
 					<p className="text-lg font-medium">Share</p>
 
 					<div className="mt-3 flex items-center gap-3">
-						<ShareButtons type="instagram"/>
+						<ShareButtons type={type}/>
 					</div>
 				</div>
 
