@@ -18,6 +18,7 @@ import {
 	stereotypes,
 	type StereotypeId,
 } from "@/lib/campaign-data";
+import { ShareButtons } from "./ShareButtons";
 
 const iconMap = {
 	Zap,
@@ -172,13 +173,7 @@ export default async function CampaignResultPage({
 					<p className="text-lg font-medium">Share</p>
 
 					<div className="mt-3 flex items-center gap-3">
-						<button className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold backdrop-blur transition hover:bg-white/10">
-							Instagram
-						</button>
-
-						<button className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold backdrop-blur transition hover:bg-white/10">
-							WhatsApp
-						</button>
+						<ShareButtons type="instagram"/>
 					</div>
 				</div>
 
