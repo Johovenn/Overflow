@@ -179,7 +179,7 @@ export default async function CampaignResultPage({
 
 				<Link
 					href="/campaign"
-					className="mt-6 text-center text-lg font-black text-white transition hover:opacity-70 md:text-2xl"
+					className="mt-6 text-center text-sm font-black text-white transition hover:opacity-70 md:text-md"
 				>
 					@jcyouthcampck7
 				</Link>

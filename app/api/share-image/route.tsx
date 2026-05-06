@@ -21,76 +21,74 @@ const stereotypeColors: Record<StereotypeId, string> = {
   "ambis-arc": "#39FF14",
   "human-wifi": "#00D9FF",
 };
-
-// Lucide icon paths inlined (Satori renders SVG, but not lucide-react components)
 const iconPaths: Record<string, React.ReactNode> = {
   Zap: <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />,
   Music: (
-    <>
+    <g>
       <path d="M9 18V5l12-2v13" />
       <circle cx="6" cy="18" r="3" />
       <circle cx="18" cy="16" r="3" />
-    </>
+    </g>
   ),
   BookOpen: (
-    <>
+    <g>
       <path d="M12 7v14" />
       <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
-    </>
+    </g>
   ),
   Utensils: (
-    <>
+    <g>
       <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
       <path d="M7 2v20" />
       <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" />
-    </>
+    </g>
   ),
   Bed: (
-    <>
+    <g>
       <path d="M2 4v16" />
       <path d="M2 8h18a2 2 0 0 1 2 2v10" />
       <path d="M2 17h20" />
       <path d="M6 8v9" />
-    </>
+    </g>
   ),
   Camera: (
-    <>
+    <g>
       <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
       <circle cx="12" cy="13" r="3" />
-    </>
+    </g>
   ),
   Compass: (
-    <>
+    <g>
       <circle cx="12" cy="12" r="10" />
       <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-    </>
+    </g>
   ),
   Sparkles: (
-    <>
+    <g>
       <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
       <path d="M20 3v4" />
       <path d="M22 5h-4" />
       <path d="M4 17v2" />
       <path d="M5 18H3" />
-    </>
+    </g>
   ),
   Trophy: (
-    <>
+    <g>
       <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
       <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
       <path d="M4 22h16" />
       <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
       <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
       <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-    </>
+    </g>
   ),
   Wifi: (
-    <>
+    <g>
       <path d="M12 20h.01" />
       <path d="M2 8.82a15 15 0 0 1 20 0" />
       <path d="M5 12.859a10 10 0 0 1 14 0" />
       <path d="M8.5 16.429a5 5 0 0 1 7 0" />
-    </>
+    </g>
   ),
 };
 

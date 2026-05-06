@@ -7,9 +7,32 @@ export function ShareButtons({ type }: { type: string }) {
 
   const getFile = async () => {
     const res = await fetch(`/api/share-image?type=${type}`);
-    const blob = await res.blob();
-    return new File([blob], `overflow-${type}.png`, { type: "image/png" });
-  };
+    const pngBlob = await res.blob();
+
+    const img = new window.Image();
+    const objectUrl = URL.createObjectURL(pngBlob);
+    await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = reject;
+        img.src = objectUrl;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+
+    const jpegBlob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((b) => resolve(b!), "image/jpeg", 0.92);
+    });
+
+    URL.revokeObjectURL(objectUrl);
+
+    return new File([jpegBlob], `overflow-${type}.jpg`, { type: "image/jpeg" });
+    };
 
   const handleNativeShare = async () => {
     setBusy(true);

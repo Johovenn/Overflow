@@ -91,26 +91,15 @@ export default function QuestionFlow() {
 				/>
 
 				<div
-					className="relative mt-12 w-full rounded-3xl border-2 bg-black/50 px-6 py-10 text-center backdrop-blur md:px-12 md:py-12"
+					className="relative mt-12 w-full rounded-3xl bg-black/50 px-6 py-10 text-center backdrop-blur md:px-12 md:py-12"
 					style={{
-						borderColor: themeColor,
-						boxShadow: `
-							0 0 18px ${themeColor}35,
-							inset 0 0 20px rgba(255,255,255,0.03)
-						`,
-					}}
+                        boxShadow: `
+                            0 0 18px ${themeColor}25,
+                            inset 0 0 20px rgba(255,255,255,0.03)
+                        `,
+                    }}
 				>
-					<div
-						className="absolute left-1/2 top-0 flex h-14 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl text-4xl font-black text-black md:h-16 md:w-32 md:text-5xl"
-						style={{
-							backgroundColor: themeColor,
-							boxShadow: `0 0 22px ${themeColor}60`,
-						}}
-					>
-						{progress}
-					</div>
-
-					<p className="mx-auto mt-3 max-w-xl text-xl font-bold leading-relaxed md:text-3xl md:leading-snug">
+					<p className="mx-auto mt-3 max-w-xl text-xl leading-relaxed md:text-3xl md:leading-snug">
 						{currentQuestion.question}
 					</p>
 				</div>
@@ -122,7 +111,7 @@ export default function QuestionFlow() {
 							type="button"
 							disabled={isChoosing}
 							onClick={() => handleChoose(answer.stereotypeId)}
-							className="flex min-h-24 items-center justify-center rounded-2xl border-2 bg-black/50 px-4 py-4 text-center text-sm font-bold leading-relaxed text-white backdrop-blur transition hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60 md:min-h-28 md:px-6 md:text-lg"
+							className="flex min-h-24 items-center justify-center rounded-2xl border bg-black/50 px-4 py-4 text-center text-sm leading-relaxed text-white backdrop-blur transition hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60 md:min-h-28 md:px-6 md:text-lg"
 							style={{
 								borderColor: themeColor,
 								boxShadow: `
@@ -141,7 +130,7 @@ export default function QuestionFlow() {
 						type="button"
 						disabled={isChoosing}
 						onClick={() => handleChoose(currentQuestion.answers[4].stereotypeId)}
-						className="flex min-h-24 w-full max-w-sm items-center justify-center rounded-2xl border-2 bg-black/50 px-4 py-4 text-center text-sm font-bold leading-relaxed text-white backdrop-blur transition hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60 md:min-h-28 md:max-w-md md:px-6 md:text-lg"
+						className="flex min-h-24 w-full max-w-sm items-center justify-center rounded-2xl border bg-black/50 px-4 py-4 text-center text-sm leading-relaxed text-white backdrop-blur transition hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60 md:min-h-28 md:max-w-md md:px-6 md:text-lg"
 						style={{
 							borderColor: themeColor,
 							boxShadow: `
@@ -155,7 +144,7 @@ export default function QuestionFlow() {
 				</div>
 
 				<div className="mt-8 w-full">
-					<div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-white/35">
+					<div className="flex items-center justify-between text-xs uppercase tracking-widest text-white/35">
 						<span>Scanner Progress</span>
 						<span>
 							{progress}/{questions.length}
