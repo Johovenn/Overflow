@@ -91,7 +91,7 @@ export default async function CampaignResultPage({
 				</p>
 
 				<div
-					className="mt-6 flex h-24 w-24 items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur md:h-32 md:w-32"
+					className="mt-6 flex h-24 w-24 items-center justify-center rounded-full border bg-black/50 backdrop-blur md:h-32 md:w-32"
 					style={{
 						borderColor: themeColor,
 						boxShadow: `
@@ -110,7 +110,7 @@ export default async function CampaignResultPage({
 				</div>
 
 				<div
-					className="mt-6 w-full rounded-3xl border-2 bg-black/50 px-5 py-5 backdrop-blur md:px-8 md:py-6"
+					className="mt-6 w-full rounded-3xl border bg-black/50 px-5 py-5 backdrop-blur md:px-8 md:py-6"
 					style={{
 						borderColor: themeColor,
 						boxShadow: `
@@ -129,7 +129,7 @@ export default async function CampaignResultPage({
 						Your Most Compatible Roommates Are
 					</p>
 
-					<div className="mt-5 flex items-end justify-center gap-3 md:gap-5">
+					<div className="mt-5 flex items-end justify-center gap-2 md:gap-5">
 						{compatibleStereotypes.map((compatible, index) => {
 							const CompatibleIcon =
 								iconMap[compatible.icon as keyof typeof iconMap];
@@ -145,7 +145,7 @@ export default async function CampaignResultPage({
 									}`}
 								>
 									<div
-										className={`shrink-0 flex items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur transition-all ${
+										className={`shrink-0 flex items-center justify-center rounded-full border bg-black/50 backdrop-blur transition-all ${
 											isCenter
 												? "h-20 w-20 md:h-24 md:w-24"
 												: "h-14 w-14 md:h-16 md:w-16"

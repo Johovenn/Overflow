@@ -21,8 +21,12 @@ const stereotypeColors: Record<StereotypeId, string> = {
   "ambis-arc": "#39FF14",
   "human-wifi": "#00D9FF",
 };
+
+// Lucide icon paths inlined. Use <g> instead of fragments — Satori can't handle fragments.
 const iconPaths: Record<string, React.ReactNode> = {
-  Zap: <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />,
+  Zap: (
+    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+  ),
   Music: (
     <g>
       <path d="M9 18V5l12-2v13" />
@@ -117,13 +121,34 @@ function Icon({
   );
 }
 
+async function loadGoogleFont(family: string, weight: number) {
+  const url = `https://fonts.googleapis.com/css2?family=${family}:wght@${weight}&display=swap`;
+  // No User-Agent — default fetch gets TTF from Google, which Satori can parse
+  const css = await fetch(url).then((r) => r.text());
+
+  const match = css.match(
+    /src: url\((.+?)\) format\(['"](?:opentype|truetype)['"]\)/
+  );
+  if (!match) throw new Error(`Could not load font: ${family} ${weight}`);
+  return fetch(match[1]).then((r) => r.arrayBuffer());
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const type = (searchParams.get("type") ?? "pulse-energy") as StereotypeId;
   const stereotype = stereotypes[type] ?? stereotypes["pulse-energy"];
   const themeColor = stereotypeColors[stereotype.id];
 
-  const compatible = stereotype.compatibleWith.map((id) => getStereotypeById(id));
+  const compatible = stereotype.compatibleWith.map((id) =>
+    getStereotypeById(id)
+  );
+
+  const [sgRegular, sgMedium, sgSemibold, sgBold] = await Promise.all([
+    loadGoogleFont("Space+Grotesk", 400),
+    loadGoogleFont("Space+Grotesk", 500),
+    loadGoogleFont("Space+Grotesk", 600),
+    loadGoogleFont("Space+Grotesk", 700),
+  ]);
 
   return new ImageResponse(
     (
@@ -138,67 +163,85 @@ export async function GET(request: Request) {
           alignItems: "center",
           justifyContent: "center",
           padding: "100px 80px",
-          fontFamily: "sans-serif",
+          fontFamily: "Space Grotesk",
           position: "relative",
         }}
       >
-        {/* Ambient glow blobs to mimic the page */}
+        {/* Ambient glow blobs */}
         <div
           style={{
             position: "absolute",
-            top: -100,
-            left: -100,
-            width: 500,
-            height: 500,
+            top: -120,
+            left: -120,
+            width: 540,
+            height: 540,
             borderRadius: 9999,
             background: "rgba(0, 217, 255, 0.18)",
-            filter: "blur(120px)",
+            filter: "blur(140px)",
             display: "flex",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: -100,
-            right: -100,
+            top: 700,
+            right: -120,
+            width: 560,
+            height: 560,
+            borderRadius: 9999,
+            background: "rgba(57, 255, 20, 0.15)",
+            filter: "blur(140px)",
+            display: "flex",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: -120,
+            left: 100,
             width: 500,
             height: 500,
             borderRadius: 9999,
-            background: "rgba(57, 255, 20, 0.15)",
-            filter: "blur(120px)",
+            background: "rgba(0, 217, 255, 0.10)",
+            filter: "blur(140px)",
             display: "flex",
           }}
         />
 
-        {/* Logo */}
+        {/* Logo with green drop-shadow */}
         <img
           src={`${origin}/overflow-logo.png`}
           alt="Overflow"
-          width={320}
-          height={100}
-          style={{ objectFit: "contain" }}
+          width={360}
+          height={112}
+          style={{
+            objectFit: "contain",
+            filter: "drop-shadow(0 0 48px rgba(163, 230, 53, 0.55))",
+          }}
         />
 
-        {/* Name */}
+        {/* Stereotype name */}
         <div
           style={{
-            fontSize: 110,
-            fontWeight: 900,
+            fontSize: 120,
+            fontWeight: 700,
             textAlign: "center",
-            marginTop: 40,
+            marginTop: 32,
             lineHeight: 1.05,
+            letterSpacing: "-0.02em",
           }}
         >
           {stereotype.name}
         </div>
 
-        {/* Short description */}
+        {/* Short description (italic — falls back to upright since Space Grotesk has no italic) */}
         <div
           style={{
             fontSize: 38,
             fontStyle: "italic",
+            fontWeight: 400,
             textAlign: "center",
-            marginTop: 24,
+            marginTop: 20,
             color: "rgba(255,255,255,0.78)",
             lineHeight: 1.4,
             maxWidth: 880,
@@ -213,16 +256,16 @@ export async function GET(request: Request) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 220,
-            height: 220,
+            width: 240,
+            height: 240,
             borderRadius: 9999,
             border: `4px solid ${themeColor}`,
             background: "rgba(0,0,0,0.5)",
-            boxShadow: `0 0 60px ${themeColor}66`,
+            boxShadow: `0 0 70px ${themeColor}66`,
             marginTop: 50,
           }}
         >
-          <Icon name={stereotype.icon} size={110} color={themeColor} />
+          <Icon name={stereotype.icon} size={120} color={themeColor} />
         </div>
 
         {/* Long description card */}
@@ -230,18 +273,19 @@ export async function GET(request: Request) {
           style={{
             display: "flex",
             marginTop: 50,
-            padding: "40px 50px",
-            borderRadius: 36,
+            padding: "44px 56px",
+            borderRadius: 40,
             border: `4px solid ${themeColor}`,
             background: "rgba(0,0,0,0.5)",
-            boxShadow: `0 0 40px ${themeColor}40`,
+            boxShadow: `0 0 50px ${themeColor}40`,
             maxWidth: 920,
           }}
         >
           <div
             style={{
               fontSize: 32,
-              lineHeight: 1.5,
+              fontWeight: 500,
+              lineHeight: 1.55,
               color: "rgba(255,255,255,0.92)",
               textAlign: "center",
             }}
@@ -250,28 +294,40 @@ export async function GET(request: Request) {
           </div>
         </div>
 
-        {/* Compatible roommates */}
+        {/* Compatible roommates label */}
         <div
           style={{
-            fontSize: 32,
+            fontSize: 34,
             fontStyle: "italic",
+            fontWeight: 400,
             color: "rgba(255,255,255,0.8)",
-            marginTop: 60,
+            marginTop: 70,
           }}
         >
           Your Most Compatible Roommates Are
         </div>
 
+        {/* Compatible roommates row — center one is bigger */}
         <div
           style={{
             display: "flex",
             gap: 50,
-            marginTop: 36,
+            marginTop: 44,
+            alignItems: "flex-end",
             justifyContent: "center",
           }}
         >
-          {compatible.map((c) => {
+          {compatible.map((c, index) => {
             const cColor = stereotypeColors[c.id];
+            const isCenter = index === 1;
+
+            const circleSize = isCenter ? 220 : 150;
+            const iconSize = isCenter ? 110 : 70;
+            const containerWidth = isCenter ? 280 : 220;
+            const nameSize = isCenter ? 30 : 24;
+            const borderWidth = isCenter ? 4 : 3;
+            const glowSize = isCenter ? 60 : 36;
+
             return (
               <div
                 key={c.id}
@@ -279,7 +335,7 @@ export async function GET(request: Request) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  width: 220,
+                  width: containerWidth,
                 }}
               >
                 <div
@@ -287,24 +343,25 @@ export async function GET(request: Request) {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: 120,
-                    height: 120,
+                    width: circleSize,
+                    height: circleSize,
                     borderRadius: 9999,
-                    border: `3px solid ${cColor}`,
+                    border: `${borderWidth}px solid ${cColor}`,
                     background: "rgba(0,0,0,0.5)",
-                    boxShadow: `0 0 30px ${cColor}55`,
+                    boxShadow: `0 0 ${glowSize}px ${cColor}66`,
                   }}
                 >
-                  <Icon name={c.icon} size={56} color={cColor} />
+                  <Icon name={c.icon} size={iconSize} color={cColor} />
                 </div>
                 <div
                   style={{
-                    fontSize: 24,
+                    fontSize: nameSize,
                     fontWeight: 600,
                     textAlign: "center",
-                    marginTop: 16,
+                    marginTop: 22,
                     color: "rgba(255,255,255,0.9)",
                     lineHeight: 1.25,
+                    maxWidth: containerWidth,
                   }}
                 >
                   {c.name}
@@ -318,6 +375,12 @@ export async function GET(request: Request) {
     {
       width: 1080,
       height: 1920,
+      fonts: [
+        { name: "Space Grotesk", data: sgRegular, weight: 400, style: "normal" },
+        { name: "Space Grotesk", data: sgMedium, weight: 500, style: "normal" },
+        { name: "Space Grotesk", data: sgSemibold, weight: 600, style: "normal" },
+        { name: "Space Grotesk", data: sgBold, weight: 700, style: "normal" },
+      ],
     }
   );
 }
