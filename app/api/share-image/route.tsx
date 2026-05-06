@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 
 import {
@@ -5,7 +6,6 @@ import {
   stereotypes,
   type StereotypeId,
 } from "@/lib/campaign-data";
-import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -173,7 +173,7 @@ export async function GET(request: Request) {
         />
 
         {/* Logo */}
-        <Image
+        <img
           src={`${origin}/overflow-logo.png`}
           alt="Overflow"
           width={320}

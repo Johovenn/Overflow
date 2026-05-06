@@ -50,18 +50,17 @@ export default function CampaignPage() {
             </div>
 
             <h1 className="mt-6 max-w-xl text-5xl font-black leading-tight md:text-7xl">
-              Discover Your
+              What type of
               <span className="bg-linear-to-r from-cyan-300 to-green-400 bg-clip-text text-transparent">
                 {" "}
-                Overflow
+                Florian
               </span>
               <br />
-              Stereotype.
+              are you?
             </h1>
 
             <p className="mt-8 max-w-xl text-base leading-8 text-white/60 md:text-lg">
-              10 pertanyaan. 10 stereotype. Cari tahu energi seperti apa yang
-              paling menggambarkan dirimu selama camp berlangsung.
+              10 pertanyaan. 10 stereotype. Cari tahu tipe florian seperti apa yang paling menggambarkan dirimu
             </p>
 
             {/* Feature Cards */}
@@ -164,6 +163,11 @@ export default function CampaignPage() {
               </div>
             </div>
           </section>
+        </div>
+        <div className="mt-14 flex justify-center">
+            <p className="text-sm font-black tracking-wide text-cyan-300/70 drop-shadow-[0_0_12px_rgba(34,211,238,0.45)]">
+                @jcyouthcampck7
+            </p>
         </div>
       </section>
     </main>
