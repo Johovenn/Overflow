@@ -8,7 +8,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Overflow Camp Leaderboard",
+  title: "Overflow | JC Youth Camp CK7",
   description: "Clan leaderboard for JC Camp",
 };
 
