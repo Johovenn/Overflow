@@ -153,9 +153,12 @@ export default function CampaignPage() {
           </section>
         </div>
         <div className="mt-14 flex justify-center">
-            <p className="text-sm font-black tracking-wide text-cyan-300/70 drop-shadow-[0_0_12px_rgba(34,211,238,0.45)]">
-                @jcyouthcampck7
-            </p>
+          <Link
+            href={'https://www.instagram.com/jcyouthcampck7/'} 
+            className="text-sm font-black tracking-wide text-cyan-300/70 drop-shadow-[0_0_12px_rgba(34,211,238,0.45)]"
+          >
+            @jcyouthcampck7
+          </Link>
         </div>
       </section>
     </main>

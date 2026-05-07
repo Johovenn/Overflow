@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import {
 	Bed,
 	BookOpen,
@@ -19,6 +18,7 @@ import {
 	type StereotypeId,
 } from "@/lib/campaign-data";
 import { ShareButtons } from "./ShareButtons";
+import Link from "next/link";
 
 const iconMap = {
 	Zap,
@@ -52,7 +52,6 @@ export default async function CampaignResultPage({
 	searchParams: Promise<{ type?: string }>;
 }) {
 	const params = await searchParams;
-
 	const type = (params.type ?? "pulse-energy") as StereotypeId;
 
 	const stereotype = stereotypes[type] ?? stereotypes["pulse-energy"];
@@ -73,10 +72,8 @@ export default async function CampaignResultPage({
 			</div>
 
 			<section className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center py-4">
-				<div
-					id="result-card"
-					className="flex w-full flex-col items-center bg-black px-5 py-4 text-white"
-				>
+				{/* Visible Result Page */}
+				<div className="flex w-full flex-col items-center text-white">
 					<Image
 						src="/overflow-logo.png"
 						alt="Overflow"
@@ -149,7 +146,7 @@ export default async function CampaignResultPage({
 										}`}
 									>
 										<div
-											className={`flex items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur transition-all ${
+											className={`flex items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur ${
 												isCenter
 													? "h-20 w-20 md:h-24 md:w-24"
 													: "h-14 w-14 md:h-16 md:w-16"
@@ -193,19 +190,150 @@ export default async function CampaignResultPage({
 					</div>
 				</div>
 
+				{/* Hidden Share Image Card */}
+				<div className="pointer-events-none fixed -left-2500 top-0">
+					<div
+						id="result-card"
+						className="relative flex w-97.5 flex-col items-center overflow-hidden bg-black px-8 pb-28 pt-8 text-white"
+						style={{
+							aspectRatio: "9 / 16",
+						}}
+					>
+						<div className="pointer-events-none absolute inset-0 z-0">
+							<div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-cyan-400/25 blur-3xl" />
+							<div className="absolute top-48 -right-24 h-80 w-80 rounded-full bg-green-400/25 blur-3xl" />
+							<div className="absolute bottom-24 -left-24 h-80 w-80 rounded-full bg-green-400/15 blur-3xl" />
+							<div className="absolute bottom-40 right-0 h-64 w-64 rounded-full bg-cyan-300/15 blur-3xl" />
+						</div>
+
+						<div className="relative z-10 flex w-full flex-col items-center">
+							<Image
+								src="/overflow-logo.png"
+								alt="Overflow"
+								width={320}
+								height={100}
+								priority
+								className="h-auto w-32 drop-shadow-[0_0_16px_rgba(163,230,53,0.3)]"
+							/>
+
+							<h1 className="mt-3 text-center text-3xl font-black leading-tight">
+								{stereotype.name}
+							</h1>
+
+							<p className="mt-2 text-center text-xs italic leading-relaxed text-white/75">
+								{stereotype.shortDescription}
+							</p>
+
+							<div className="mt-4 flex h-28 w-28 items-center justify-center">
+								<div
+									className="flex h-20 w-20 items-center justify-center rounded-full border bg-black/40 backdrop-blur"
+									style={{
+										borderColor: themeColor,
+										boxShadow: `
+											0 0 6px ${themeColor}45,
+											inset 0 0 8px rgba(255,255,255,0.04)
+										`,
+									}}
+								>
+									<MainIcon
+										size={38}
+										style={{
+											color: themeColor,
+											filter: `drop-shadow(0 0 3px ${themeColor})`,
+										}}
+									/>
+								</div>
+							</div>
+
+							<div
+								className="mt-4 w-full rounded-3xl border bg-black/45 px-5 py-4 backdrop-blur"
+								style={{
+									borderColor: themeColor,
+									boxShadow: `
+										0 0 10px ${themeColor}35,
+										0 0 20px ${themeColor}15,
+										inset 0 0 10px rgba(255,255,255,0.03)
+									`,
+								}}
+							>
+								<p className="text-sm font-medium leading-7 text-white/90">
+									{stereotype.longDescription}
+								</p>
+							</div>
+
+							<div className="mt-6 text-center">
+								<p className="text-sm italic text-white/80">
+									Your Most Compatible Roommates Are
+								</p>
+
+								<div className="mt-3 flex items-end justify-center gap-4">
+									{compatibleStereotypes.map((compatible, index) => {
+										const CompatibleIcon =
+											iconMap[compatible.icon as keyof typeof iconMap];
+
+										const compatibleColor = stereotypeColors[compatible.id];
+										const isCenter = index === 1;
+
+										return (
+											<div
+												key={compatible.id}
+												className={`flex flex-col items-center text-center ${
+													isCenter ? "w-24" : "w-20"
+												}`}
+											>
+												<div
+													className={`flex items-center justify-center ${
+														isCenter ? "h-20 w-20" : "h-16 w-16"
+													}`}
+												>
+													<div
+														className={`flex items-center justify-center rounded-full border bg-black/45 backdrop-blur ${
+															isCenter ? "h-16 w-16" : "h-12 w-12"
+														}`}
+														style={{
+															borderColor: compatibleColor,
+															boxShadow: `
+																0 0 5px ${compatibleColor}40,
+																inset 0 0 7px rgba(255,255,255,0.03)
+															`,
+														}}
+													>
+														<CompatibleIcon
+															size={isCenter ? 30 : 22}
+															style={{
+																color: compatibleColor,
+																filter: `drop-shadow(0 0 2px ${compatibleColor})`,
+															}}
+														/>
+													</div>
+												</div>
+
+												<div className="mt-1 flex h-10 items-start justify-center">
+													<p className="text-xs font-semibold leading-snug text-white/85">
+														{compatible.name}
+													</p>
+												</div>
+											</div>
+										);
+									})}
+								</div>
+							</div>
+
+							<div className="mt-8 h-24 w-full" />
+						</div>
+					</div>
+				</div>
+
 				<div className="mt-7 flex flex-col items-center">
 					<p className="text-lg font-medium">Share</p>
-
 					<ShareButtons targetId="result-card" type={stereotype.id} />
-
-					<Link
-						href="https://www.instagram.com/jcyouthcampck7/"
-						target="_blank"
-						className="mt-6 text-center text-lg font-black text-white transition hover:opacity-70 md:text-2xl"
-					>
-						@jcyouthcampck7
-					</Link>
 				</div>
+				<Link
+					href={'https://www.instagram.com/jcyouthcampck7/'} 
+					className="text-sm font-black tracking-wide text-cyan-300/70 drop-shadow-[0_0_12px_rgba(34,211,238,0.45)] mt-6"
+				>
+					@jcyouthcampck7
+				</Link>
 			</section>
 		</main>
 	);
