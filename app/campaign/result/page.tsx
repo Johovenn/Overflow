@@ -73,137 +73,139 @@ export default async function CampaignResultPage({
 			</div>
 
 			<section className="relative z-10 mx-auto flex min-h-screen max-w-3xl flex-col items-center justify-center py-4">
-				<Image
-					src="/overflow-logo.png"
-					alt="Overflow"
-					width={320}
-					height={100}
-					priority
-					className="h-auto w-36 drop-shadow-[0_0_24px_rgba(163,230,53,0.45)] md:w-44"
-				/>
-
-				<h1 className="mt-4 text-center text-4xl font-black leading-tight md:text-6xl">
-					{stereotype.name}
-				</h1>
-
-				<p className="mt-2 text-center text-sm italic leading-relaxed text-white/75 md:text-xl">
-					{stereotype.shortDescription}
-				</p>
-
 				<div
-					className="mt-6 flex h-24 w-24 items-center justify-center rounded-full border bg-black/50 backdrop-blur md:h-32 md:w-32"
-					style={{
-						borderColor: themeColor,
-						boxShadow: `
-							0 0 22px ${themeColor}40,
-							inset 0 0 16px rgba(255,255,255,0.03)
-						`,
-					}}
+					id="result-card"
+					className="flex w-full flex-col items-center bg-black px-5 py-4 text-white"
 				>
-					<MainIcon
-						size={46}
-						style={{
-							color: themeColor,
-							filter: `drop-shadow(0 0 10px ${themeColor})`,
-						}}
+					<Image
+						src="/overflow-logo.png"
+						alt="Overflow"
+						width={320}
+						height={100}
+						priority
+						className="h-auto w-36 drop-shadow-[0_0_24px_rgba(163,230,53,0.45)] md:w-44"
 					/>
-				</div>
 
-				<div
-					className="mt-6 w-full rounded-3xl border bg-black/50 px-5 py-5 backdrop-blur md:px-8 md:py-6"
-					style={{
-						borderColor: themeColor,
-						boxShadow: `
-							0 0 16px ${themeColor}30,
-							inset 0 0 16px rgba(255,255,255,0.03)
-						`,
-					}}
-				>
-					<p className="text-sm font-medium leading-7 text-white/90 md:text-lg md:leading-8">
-						{stereotype.longDescription}
-					</p>
-				</div>
+					<h1 className="mt-4 text-center text-4xl font-black leading-tight md:text-6xl">
+						{stereotype.name}
+					</h1>
 
-				<div className="mt-7 text-center">
-					<p className="text-base italic text-white/80 md:text-xl">
-						Your Most Compatible Roommates Are
+					<p className="mt-2 text-center text-sm italic leading-relaxed text-white/75 md:text-xl">
+						{stereotype.shortDescription}
 					</p>
 
-					<div className="mt-5 flex items-end justify-center gap-2 md:gap-5">
-						{compatibleStereotypes.map((compatible, index) => {
-							const CompatibleIcon =
-								iconMap[compatible.icon as keyof typeof iconMap];
+					<div
+						className="mt-6 flex h-24 w-24 items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur md:h-32 md:w-32"
+						style={{
+							borderColor: themeColor,
+							boxShadow: `
+								0 0 22px ${themeColor}40,
+								inset 0 0 16px rgba(255,255,255,0.03)
+							`,
+						}}
+					>
+						<MainIcon
+							size={46}
+							style={{
+								color: themeColor,
+								filter: `drop-shadow(0 0 10px ${themeColor})`,
+							}}
+						/>
+					</div>
 
-							const compatibleColor = stereotypeColors[compatible.id];
-							const isCenter = index === 1;
+					<div
+						className="mt-6 w-full rounded-3xl border-2 bg-black/50 px-5 py-5 backdrop-blur md:px-8 md:py-6"
+						style={{
+							borderColor: themeColor,
+							boxShadow: `
+								0 0 16px ${themeColor}30,
+								inset 0 0 16px rgba(255,255,255,0.03)
+							`,
+						}}
+					>
+						<p className="text-sm font-medium leading-7 text-white/90 md:text-lg md:leading-8">
+							{stereotype.longDescription}
+						</p>
+					</div>
 
-							return (
-								<div
-									key={compatible.id}
-									className={`flex flex-col items-center text-center ${
-										isCenter ? "w-24 md:w-28" : "w-20 md:w-24"
-									}`}
-								>
+					<div className="mt-7 text-center">
+						<p className="text-base italic text-white/80 md:text-xl">
+							Your Most Compatible Roommates Are
+						</p>
+
+						<div className="mt-5 flex items-end justify-center gap-3 md:gap-5">
+							{compatibleStereotypes.map((compatible, index) => {
+								const CompatibleIcon =
+									iconMap[compatible.icon as keyof typeof iconMap];
+
+								const compatibleColor = stereotypeColors[compatible.id];
+								const isCenter = index === 1;
+
+								return (
 									<div
-										className={`shrink-0 flex items-center justify-center rounded-full border bg-black/50 backdrop-blur transition-all ${
-											isCenter
-												? "h-20 w-20 md:h-24 md:w-24"
-												: "h-14 w-14 md:h-16 md:w-16"
-										}`}
-										style={{
-											borderColor: compatibleColor,
-											boxShadow: `
-												0 0 16px ${compatibleColor}30,
-												inset 0 0 14px rgba(255,255,255,0.03)
-											`,
-										}}
-									>
-										<CompatibleIcon
-											size={isCenter ? 36 : 24}
-											style={{
-												color: compatibleColor,
-												filter: `drop-shadow(0 0 8px ${compatibleColor})`,
-											}}
-										/>
-									</div>
-
-									<div
-										className={`mt-2 flex items-start justify-center ${
-											isCenter
-												? "h-12 md:h-14"
-												: "h-10 md:h-12"
+										key={compatible.id}
+										className={`flex flex-col items-center text-center ${
+											isCenter ? "w-24 md:w-28" : "w-20 md:w-24"
 										}`}
 									>
-										<p
-											className={`font-semibold leading-snug text-white/85 ${
+										<div
+											className={`flex items-center justify-center rounded-full border-2 bg-black/50 backdrop-blur transition-all ${
 												isCenter
-													? "text-sm md:text-base"
-													: "text-xs md:text-sm"
+													? "h-20 w-20 md:h-24 md:w-24"
+													: "h-14 w-14 md:h-16 md:w-16"
+											}`}
+											style={{
+												borderColor: compatibleColor,
+												boxShadow: `
+													0 0 16px ${compatibleColor}30,
+													inset 0 0 14px rgba(255,255,255,0.03)
+												`,
+											}}
+										>
+											<CompatibleIcon
+												size={isCenter ? 36 : 24}
+												style={{
+													color: compatibleColor,
+													filter: `drop-shadow(0 0 8px ${compatibleColor})`,
+												}}
+											/>
+										</div>
+
+										<div
+											className={`mt-2 flex items-start justify-center ${
+												isCenter ? "h-12 md:h-14" : "h-10 md:h-12"
 											}`}
 										>
-											{compatible.name}
-										</p>
+											<p
+												className={`font-semibold leading-snug text-white/85 ${
+													isCenter
+														? "text-sm md:text-base"
+														: "text-xs md:text-sm"
+												}`}
+											>
+												{compatible.name}
+											</p>
+										</div>
 									</div>
-								</div>
-							);
-						})}
+								);
+							})}
+						</div>
 					</div>
 				</div>
 
 				<div className="mt-7 flex flex-col items-center">
 					<p className="text-lg font-medium">Share</p>
 
-					<div className="mt-3 flex items-center gap-3">
-						<ShareButtons type={type}/>
-					</div>
-				</div>
+					<ShareButtons targetId="result-card" type={stereotype.id} />
 
-				<Link
-					href="/campaign"
-					className="mt-6 text-center text-sm font-black text-white transition hover:opacity-70 md:text-md"
-				>
-					@jcyouthcampck7
-				</Link>
+					<Link
+						href="https://www.instagram.com/jcyouthcampck7/"
+						target="_blank"
+						className="mt-6 text-center text-lg font-black text-white transition hover:opacity-70 md:text-2xl"
+					>
+						@jcyouthcampck7
+					</Link>
+				</div>
 			</section>
 		</main>
 	);
