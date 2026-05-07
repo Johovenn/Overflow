@@ -151,7 +151,7 @@ export const questions: CampaignQuestion[] = [
 		id: 3,
 		question: "Kalau ada kegiatan yang butuh kerjasama kelompok, kamulah si…",
 		answers: [
-			{ label: "A", text: "Si paling bisa diem", stereotypeId: "deep-listeners" },
+			{ label: "A", text: "Si paling gabisa diem", stereotypeId: "pulse-energy" },
 			{ label: "B", text: "Si yang paling santai dan ikut alur aja", stereotypeId: "sloth-supremacy" },
 			{ label: "C", text: "Si pendengar dan pemberi masukan", stereotypeId: "deep-listeners" },
 			{ label: "D", text: "Si tiba-tiba laper", stereotypeId: "fuel-squad" },
@@ -162,7 +162,7 @@ export const questions: CampaignQuestion[] = [
 		id: 4,
 		question: "Pas lagi final games, kamu ngapain?",
 		answers: [
-			{ label: "A", text: "Nyusun strategi, kelompok dan clanku menang!", stereotypeId: "ambis-arc" },
+			{ label: "A", text: "Nyusun strategi, kelompok dan clanku harus menang!", stereotypeId: "ambis-arc" },
 			{ label: "B", text: "Berusaha untuk tetap kering", stereotypeId: "high-maintenance-peeps" },
 			{ label: "C", text: "Minta tolong panitia fotoin ke-chaos-an ini", stereotypeId: "shutterbug" },
 			{ label: "D", text: "Ngeramein dan ngerusuhin", stereotypeId: "human-wifi" },
