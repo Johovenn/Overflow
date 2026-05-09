@@ -11,14 +11,12 @@ import {
 	Wifi,
 	Zap,
 } from "lucide-react";
-
 import {
 	getStereotypeById,
 	stereotypes,
 	type StereotypeId,
 } from "@/lib/campaign-data";
 import { ShareButtons } from "./ShareButtons";
-import Link from "next/link";
 
 const iconMap = {
 	Zap,
@@ -188,24 +186,23 @@ export default async function CampaignResultPage({
 							})}
 						</div>
 					</div>
+
+					<p className="mt-6 text-center text-lg font-black text-white md:text-2xl">
+						@jcyouthcampck7
+					</p>
 				</div>
 
-				{/* Hidden Share Image Card */}
+				{/* Hidden Share Image Card — iOS-safe version */}
 				<div className="pointer-events-none fixed -left-2500 top-0">
 					<div
 						id="result-card"
-						className="relative flex w-97.5 flex-col items-center overflow-hidden bg-black px-8 pb-28 pt-8 text-white"
+						className="relative flex w-97.5 flex-col items-center overflow-hidden bg-black px-8 pb-32 pt-8 text-white"
 						style={{
 							aspectRatio: "9 / 16",
+							background:
+								"radial-gradient(circle at 12% 8%, rgba(0, 217, 255, 0.34) 0, rgba(0, 217, 255, 0.18) 16%, transparent 36%), radial-gradient(circle at 88% 32%, rgba(57, 255, 20, 0.28) 0, rgba(57, 255, 20, 0.12) 18%, transparent 42%), radial-gradient(circle at 10% 82%, rgba(57, 255, 20, 0.22) 0, rgba(57, 255, 20, 0.10) 20%, transparent 44%), radial-gradient(circle at 90% 76%, rgba(0, 217, 255, 0.20) 0, rgba(0, 217, 255, 0.10) 18%, transparent 40%), #000000",
 						}}
 					>
-						<div className="pointer-events-none absolute inset-0 z-0">
-							<div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-cyan-400/25 blur-3xl" />
-							<div className="absolute top-48 -right-24 h-80 w-80 rounded-full bg-green-400/25 blur-3xl" />
-							<div className="absolute bottom-24 -left-24 h-80 w-80 rounded-full bg-green-400/15 blur-3xl" />
-							<div className="absolute bottom-40 right-0 h-64 w-64 rounded-full bg-cyan-300/15 blur-3xl" />
-						</div>
-
 						<div className="relative z-10 flex w-full flex-col items-center">
 							<Image
 								src="/overflow-logo.png"
@@ -213,7 +210,7 @@ export default async function CampaignResultPage({
 								width={320}
 								height={100}
 								priority
-								className="h-auto w-32 drop-shadow-[0_0_16px_rgba(163,230,53,0.3)]"
+								className="h-auto w-32"
 							/>
 
 							<h1 className="mt-3 text-center text-3xl font-black leading-tight">
@@ -224,36 +221,26 @@ export default async function CampaignResultPage({
 								{stereotype.shortDescription}
 							</p>
 
-							<div className="mt-4 flex h-28 w-28 items-center justify-center">
-								<div
-									className="flex h-20 w-20 items-center justify-center rounded-full border bg-black/40 backdrop-blur"
+							<div
+								className="mt-5 flex h-20 w-20 items-center justify-center rounded-full border bg-black/40"
+								style={{
+									borderColor: themeColor,
+									background: `radial-gradient(circle, ${themeColor}22 0%, rgba(0,0,0,0.72) 58%)`,
+								}}
+							>
+								<MainIcon
+									size={38}
 									style={{
-										borderColor: themeColor,
-										boxShadow: `
-											0 0 6px ${themeColor}45,
-											inset 0 0 8px rgba(255,255,255,0.04)
-										`,
+										color: themeColor,
 									}}
-								>
-									<MainIcon
-										size={38}
-										style={{
-											color: themeColor,
-											filter: `drop-shadow(0 0 3px ${themeColor})`,
-										}}
-									/>
-								</div>
+								/>
 							</div>
 
 							<div
-								className="mt-4 w-full rounded-3xl border bg-black/45 px-5 py-4 backdrop-blur"
+								className="mt-5 w-full rounded-3xl border bg-black/45 px-5 py-4"
 								style={{
 									borderColor: themeColor,
-									boxShadow: `
-										0 0 10px ${themeColor}35,
-										0 0 20px ${themeColor}15,
-										inset 0 0 10px rgba(255,255,255,0.03)
-									`,
+									background: `linear-gradient(135deg, rgba(0,0,0,0.74), ${themeColor}12)`,
 								}}
 							>
 								<p className="text-sm font-medium leading-7 text-white/90">
@@ -266,7 +253,7 @@ export default async function CampaignResultPage({
 									Your Most Compatible Roommates Are
 								</p>
 
-								<div className="mt-3 flex items-end justify-center gap-4">
+								<div className="mt-4 flex items-end justify-center gap-4">
 									{compatibleStereotypes.map((compatible, index) => {
 										const CompatibleIcon =
 											iconMap[compatible.icon as keyof typeof iconMap];
@@ -282,33 +269,23 @@ export default async function CampaignResultPage({
 												}`}
 											>
 												<div
-													className={`flex items-center justify-center ${
-														isCenter ? "h-20 w-20" : "h-16 w-16"
+													className={`flex items-center justify-center rounded-full border bg-black/45 ${
+														isCenter ? "h-16 w-16" : "h-12 w-12"
 													}`}
+													style={{
+														borderColor: compatibleColor,
+														background: `radial-gradient(circle, ${compatibleColor}22 0%, rgba(0,0,0,0.72) 60%)`,
+													}}
 												>
-													<div
-														className={`flex items-center justify-center rounded-full border bg-black/45 backdrop-blur ${
-															isCenter ? "h-16 w-16" : "h-12 w-12"
-														}`}
+													<CompatibleIcon
+														size={isCenter ? 30 : 22}
 														style={{
-															borderColor: compatibleColor,
-															boxShadow: `
-																0 0 5px ${compatibleColor}40,
-																inset 0 0 7px rgba(255,255,255,0.03)
-															`,
+															color: compatibleColor,
 														}}
-													>
-														<CompatibleIcon
-															size={isCenter ? 30 : 22}
-															style={{
-																color: compatibleColor,
-																filter: `drop-shadow(0 0 2px ${compatibleColor})`,
-															}}
-														/>
-													</div>
+													/>
 												</div>
 
-												<div className="mt-1 flex h-10 items-start justify-center">
+												<div className="mt-2 flex h-10 items-start justify-center">
 													<p className="text-xs font-semibold leading-snug text-white/85">
 														{compatible.name}
 													</p>
@@ -319,7 +296,7 @@ export default async function CampaignResultPage({
 								</div>
 							</div>
 
-							<div className="mt-8 h-24 w-full" />
+							<div className="mt-10 h-28 w-full" />
 						</div>
 					</div>
 				</div>
@@ -328,12 +305,6 @@ export default async function CampaignResultPage({
 					<p className="text-lg font-medium">Share</p>
 					<ShareButtons targetId="result-card" type={stereotype.id} />
 				</div>
-				<Link
-					href={'https://www.instagram.com/jcyouthcampck7/'} 
-					className="text-sm font-black tracking-wide text-cyan-300/70 drop-shadow-[0_0_12px_rgba(34,211,238,0.45)] mt-6"
-				>
-					@jcyouthcampck7
-				</Link>
 			</section>
 		</main>
 	);
