@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -9,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Overflow | JC Youth Camp CK7",
-  description: "Clan leaderboard for JC Camp",
+  description: "Fill Up, Rise Up, Flow Out!",
 };
 
 export default function RootLayout({
@@ -21,6 +22,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${spaceGrotesk.variable} antialiased`}>
         {children}
+
+        <Analytics />
       </body>
     </html>
   );
