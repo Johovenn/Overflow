@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const allowedRoutes = [
+	"/",
+	"/login",
+	"/points",
+	"/campaign",
+];
+
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	// allow campaign routes
-	if (pathname.startsWith("/campaign")) {
-		return NextResponse.next();
-	}
-
-	// allow static/internal files
+	// allow Next.js internals & static files
 	if (
 		pathname.startsWith("/_next") ||
 		pathname.startsWith("/favicon.ico") ||
@@ -18,9 +20,19 @@ export function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// redirect everything else
+	// allow exact routes
+	if (allowedRoutes.includes(pathname)) {
+		return NextResponse.next();
+	}
+
+	// allow campaign subroutes
+	if (pathname.startsWith("/campaign/")) {
+		return NextResponse.next();
+	}
+
+	// redirect everything else to /
 	return NextResponse.redirect(
-		new URL("/campaign", request.url)
+		new URL("/", request.url)
 	);
 }
 
