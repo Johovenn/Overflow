@@ -29,6 +29,7 @@ export default async function HomePage() {
 		.order("points", { ascending: false });
 
 	if (error) {
+		console.error("Supabase leaderboard error:", error);
 		return (
 			<main className="flex min-h-screen items-center justify-center bg-black text-white">
 				Failed to load leaderboard.
