@@ -51,8 +51,8 @@ export default function LinksPage() {
 					/>
 
 					<LinkCard
-						title="Documentation"
-						description="Camp memories"
+						title="Snapshot"
+						description="Relive your camp memories"
 						href="YOUR_GDRIVE_LINK"
 						color="#BF00FF"
 						icon={Images}
