@@ -41,8 +41,9 @@ export async function updateGroupPoints(formData: FormData) {
     throw new Error("Failed to update points.");
   }
 
-  revalidatePath("/");
+  revalidatePath("/leaderboard");
   revalidatePath("/points");
+  revalidatePath("/committee-links");
 
-  redirect("/");
+  redirect("/committee-links");
 }

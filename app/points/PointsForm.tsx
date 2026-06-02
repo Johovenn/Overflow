@@ -108,21 +108,35 @@ export default function PointsForm({ groups }: { groups: Group[] }) {
           Points to Award
         </p>
 
-        <p
-          className={`mt-4 text-6xl font-black ${
+        <input
+          type="number"
+          value={points}
+          onChange={(e) => {
+            const value = Number(e.target.value);
+
+            if (Number.isNaN(value)) {
+              setPoints(0);
+              return;
+            }
+
+            setPoints(value);
+          }}
+          className={`mt-4 w-full bg-transparent text-center text-6xl font-black outline-none ${
             points < 0 ? "text-red-400" : "text-green-400"
           }`}
-        >
-          {points}
-        </p>
+        />
 
-        <div className="mx-auto mt-5 h-px w-40 bg-green-400/30" />
+        <div
+          className={`mx-auto mt-5 h-px w-40 ${
+            points < 0 ? "bg-red-400/30" : "bg-green-400/30"
+          }`}
+        />
 
         <div className="mt-5 flex justify-center gap-4">
           <button
             type="button"
             onClick={() => setPoints((value) => value - 50)}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/10 text-2xl text-white/70"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/10 text-2xl text-white/70 transition hover:bg-white/20"
           >
             −
           </button>
@@ -130,7 +144,7 @@ export default function PointsForm({ groups }: { groups: Group[] }) {
           <button
             type="button"
             onClick={() => setPoints((value) => value + 50)}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/10 text-2xl text-white/70"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/10 text-2xl text-white/70 transition hover:bg-white/20"
           >
             +
           </button>

@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const allowedRoutes = [
-	"/",
+const publicRoutes = [
 	"/login",
-	"/points",
 	"/campaign",
+	"/links",
+	"/leaderboard",
+];
+
+const protectedRoutes = [
+	"/committee-links",
+	"/points",
 ];
 
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
-	// allow Next.js internals & static files
 	if (
 		pathname.startsWith("/_next") ||
 		pathname.startsWith("/favicon.ico") ||
@@ -20,19 +24,34 @@ export function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// allow exact routes
-	if (allowedRoutes.includes(pathname)) {
-		return NextResponse.next();
+	if (pathname === "/") {
+		return NextResponse.redirect(
+			new URL("/leaderboard", request.url)
+		);
 	}
 
-	// allow campaign subroutes
 	if (pathname.startsWith("/campaign/")) {
 		return NextResponse.next();
 	}
 
-	// redirect everything else to /
+	if (protectedRoutes.includes(pathname)) {
+		const access = request.cookies.get("colorless_access")?.value;
+
+		if (access !== "granted") {
+			return NextResponse.redirect(
+				new URL("/login", request.url)
+			);
+		}
+
+		return NextResponse.next();
+	}
+
+	if (publicRoutes.includes(pathname)) {
+		return NextResponse.next();
+	}
+
 	return NextResponse.redirect(
-		new URL("/", request.url)
+		new URL("/leaderboard", request.url)
 	);
 }
 
