@@ -36,7 +36,7 @@ export default function LinksPage() {
 					<LinkCard
 						title="Rundown"
 						description="Event schedule"
-						href="YOUR_RUNDOWN_LINK"
+						href="https://drive.google.com/file/d/1AvGdclmzAZxUw1G3MYtPkMkPxyUPZtzf/view?usp=drive_link"
 						color="#00D9FF"
 						icon={CalendarDays}
 						external
@@ -44,7 +44,7 @@ export default function LinksPage() {
 
 					<LinkCard
 						title="Leaderboard Score"
-						description="Live rankings"
+						description="View all group live rankings"
 						href="/leaderboard"
 						color="#39FF14"
 						icon={Trophy}
@@ -53,16 +53,16 @@ export default function LinksPage() {
 					<LinkCard
 						title="Snapshot"
 						description="Relive your camp memories"
-						href="YOUR_GDRIVE_LINK"
+						href="https://drive.google.com/drive/folders/1slUC-IqiMfmzHFEpvNtVc2rN6o7h4Kq3"
 						color="#BF00FF"
 						icon={Images}
 						external
 					/>
 
 					<LinkCard
-						title="Rules"
-						description="Camp regulations"
-						href="YOUR_RULES_LINK"
+						title="Monochrome District Rules"
+						description="Make sure you don't break any rules!"
+						href="https://drive.google.com/file/d/12GnrL3hgLWJS3PavqTiEQp_BSkqTqxyI/view?usp=drivesdk"
 						color="#FF7A00"
 						icon={ShieldCheck}
 						external

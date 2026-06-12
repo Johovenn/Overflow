@@ -41,7 +41,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="Rundown Panitia"
 						description="Rundown • Point System • Master Code"
-						href="YOUR_COMMITTEE_DOC"
+						href="https://drive.google.com/file/d/18ctlqJN89tq3jC3k_HZdR0c2ZfPkDAJA/view?usp=drive_link"
 						color="#FF3B3B"
 						icon={ClipboardList}
 						external
@@ -50,7 +50,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="Rundown Peserta"
 						description="Participant Rundown"
-						href="YOUR_RUNDOWN_LINK"
+						href="https://drive.google.com/file/d/1AvGdclmzAZxUw1G3MYtPkMkPxyUPZtzf/view?usp=drive_link"
 						color="#00D9FF"
 						icon={CalendarDays}
 						external
@@ -75,7 +75,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="Snapshot"
 						description="Relive your camp memories"
-						href="YOUR_GDRIVE_LINK"
+						href="https://drive.google.com/drive/folders/1slUC-IqiMfmzHFEpvNtVc2rN6o7h4Kq3"
 						color="#BF00FF"
 						icon={Images}
 						external
@@ -84,7 +84,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="Rules"
 						description="Camp regulations"
-						href="YOUR_RULES_LINK"
+						href="https://drive.google.com/file/d/12GnrL3hgLWJS3PavqTiEQp_BSkqTqxyI/view?usp=drivesdk"
 						color="#FF7A00"
 						icon={ShieldCheck}
 						external
