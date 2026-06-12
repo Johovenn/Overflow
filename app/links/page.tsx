@@ -53,7 +53,7 @@ export default function LinksPage() {
 					<LinkCard
 						title="Snapshot"
 						description="Relive your camp memories"
-						href="https://drive.google.com/drive/folders/1slUC-IqiMfmzHFEpvNtVc2rN6o7h4Kq3"
+						href="https://drive.google.com/drive/folders/1Wi1wBeIK8kBxxyRqo2rbMHBTi5EzKVfr"
 						color="#BF00FF"
 						icon={Images}
 						external
