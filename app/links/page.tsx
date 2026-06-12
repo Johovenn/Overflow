@@ -6,6 +6,7 @@ import {
 	Images,
 	ShieldCheck,
 	BedDouble,
+	Users,
 } from "lucide-react";
 import { LinkCard } from "../components/LinkCard";
 
@@ -74,6 +75,15 @@ export default function LinksPage() {
 						href="YOUR_ROOM_LIST_LINK"
 						color="#FFC400"
 						icon={BedDouble}
+						external
+					/>
+
+					<LinkCard
+						title="Pembagian Kelompok"
+						description="View all groups and members"
+						href="https://drive.google.com/file/d/135dIY-gfo5jp6p1MzaJLOkGSZhWZJrgs/view?usp=sharing"
+						color="#d4ff00"
+						icon={Users}
 						external
 					/>
 				</div>
