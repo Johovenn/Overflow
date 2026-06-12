@@ -40,7 +40,7 @@ export default function CommitteeLinksPage() {
 				<div className="mt-10 flex w-full flex-col gap-4">
 					<LinkCard
 						title="Rundown Panitia"
-						description="Rundown • Point System • Master Code"
+						description="Commitee Rundown"
 						href="https://drive.google.com/file/d/18ctlqJN89tq3jC3k_HZdR0c2ZfPkDAJA/view?usp=drive_link"
 						color="#FF3B3B"
 						icon={ClipboardList}
