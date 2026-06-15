@@ -41,7 +41,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="Rundown Panitia"
 						description="Commitee Rundown"
-						href="https://drive.google.com/file/d/18ctlqJN89tq3jC3k_HZdR0c2ZfPkDAJA/view?usp=drive_link"
+						href="https://drive.google.com/file/d/1LwgGy5ZwBIKQ1lgrSET4rRBSAbVuRVbi/view?usp=drive_link"
 						color="#FF3B3B"
 						icon={ClipboardList}
 						external
@@ -93,7 +93,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="List Kamar"
 						description="Room assignments"
-						href="YOUR_ROOM_LIST_LINK"
+						href="https://drive.google.com/file/d/1nUoaucqbo4_mP0FoVw0XLytRKEME5be-/view?usp=sharing"
 						color="#FFC400"
 						icon={BedDouble}
 						external
