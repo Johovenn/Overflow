@@ -85,7 +85,7 @@ export default function CommitteeLinksPage() {
 					<LinkCard
 						title="Monochrome District Rules & Points"
 						description="Camp regulations"
-						href="https://drive.google.com/file/d/12GnrL3hgLWJS3PavqTiEQp_BSkqTqxyI/view?usp=drivesdk"
+						href="https://drive.google.com/file/d/1mtkTPzw59NsS4E-xytdwwLDOMWHyKviq/view?usp=sharing"
 						color="#FF7A00"
 						icon={ShieldCheck}
 						external

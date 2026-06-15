@@ -63,7 +63,7 @@ export default function LinksPage() {
 					<LinkCard
 						title="Monochrome District Rules & Points"
 						description="Make sure you don't break any rules!"
-						href="https://drive.google.com/file/d/12GnrL3hgLWJS3PavqTiEQp_BSkqTqxyI/view?usp=drivesdk"
+						href="https://drive.google.com/file/d/1mtkTPzw59NsS4E-xytdwwLDOMWHyKviq/view?usp=sharing"
 						color="#FF7A00"
 						icon={ShieldCheck}
 						external
