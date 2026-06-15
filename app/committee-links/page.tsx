@@ -10,6 +10,7 @@ import {
 	Images,
 	ShieldCheck,
 	BedDouble,
+	Users,
 } from "lucide-react";
 import { LinkCard } from "../components/LinkCard";
 
@@ -82,7 +83,7 @@ export default function CommitteeLinksPage() {
 					/>
 
 					<LinkCard
-						title="Rules"
+						title="Monochrome District Rules & Points"
 						description="Camp regulations"
 						href="https://drive.google.com/file/d/12GnrL3hgLWJS3PavqTiEQp_BSkqTqxyI/view?usp=drivesdk"
 						color="#FF7A00"
@@ -96,6 +97,15 @@ export default function CommitteeLinksPage() {
 						href="https://drive.google.com/file/d/1nUoaucqbo4_mP0FoVw0XLytRKEME5be-/view?usp=sharing"
 						color="#FFC400"
 						icon={BedDouble}
+						external
+					/>
+
+					<LinkCard
+						title="Pembagian Kelompok"
+						description="View all groups and members"
+						href="https://drive.google.com/file/d/1JHGbGjIy1iCKS-6iPF9QfPfakaAXQiu6/view?usp=sharing"
+						color="#d4ff00"
+						icon={Users}
 						external
 					/>
 				</div>

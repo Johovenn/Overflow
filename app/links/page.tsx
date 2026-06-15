@@ -61,7 +61,7 @@ export default function LinksPage() {
 					/>
 
 					<LinkCard
-						title="Monochrome District Rules"
+						title="Monochrome District Rules & Points"
 						description="Make sure you don't break any rules!"
 						href="https://drive.google.com/file/d/12GnrL3hgLWJS3PavqTiEQp_BSkqTqxyI/view?usp=drivesdk"
 						color="#FF7A00"
@@ -81,7 +81,7 @@ export default function LinksPage() {
 					<LinkCard
 						title="Pembagian Kelompok"
 						description="View all groups and members"
-						href="https://drive.google.com/file/d/135dIY-gfo5jp6p1MzaJLOkGSZhWZJrgs/view?usp=sharing"
+						href="https://drive.google.com/file/d/1JHGbGjIy1iCKS-6iPF9QfPfakaAXQiu6/view?usp=sharing"
 						color="#d4ff00"
 						icon={Users}
 						external
