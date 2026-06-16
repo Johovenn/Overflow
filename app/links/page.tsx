@@ -72,7 +72,7 @@ export default function LinksPage() {
 					<LinkCard
 						title="List Kamar"
 						description="Room assignments"
-						href="https://drive.google.com/file/d/1nUoaucqbo4_mP0FoVw0XLytRKEME5be-/view?usp=sharing"
+						href="https://drive.google.com/file/d/1y4mVVyeb_9ITO2GnmZ1XiVpj6obKGn2R/view?usp=sharing"
 						color="#FFC400"
 						icon={BedDouble}
 						external
