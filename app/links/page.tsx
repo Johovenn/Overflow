@@ -30,7 +30,7 @@ export default function LinksPage() {
 				/>
 
 				<p className="mt-4 text-center text-sm text-white/60">
-					JC Youth Camp 2025
+					JC Youth Camp 2026
 				</p>
 
 				<div className="mt-10 flex w-full flex-col gap-4">
